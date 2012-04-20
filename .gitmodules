@@ -1,0 +1,3 @@
+[submodule "deps/sharpfilesystem"]
+	path = deps/sharpfilesystem
+	url = git@github.com:eropple/sharpfilesystem.git
