@@ -4,3 +4,11 @@ obj
 
 # mstest test results
 TestResults
+
+*.suo
+*.userprefs
+*.vs10x
+_ReSharper*
+_Upgrade*
+UpgradeLog*.XML
+*~
