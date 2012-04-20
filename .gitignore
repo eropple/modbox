@@ -9,6 +9,8 @@ TestResults
 *.userprefs
 *.vs10x
 _ReSharper*
+*.ReSharper.user
+*.resharper.user
 _Upgrade*
 UpgradeLog*.XML
 *~
