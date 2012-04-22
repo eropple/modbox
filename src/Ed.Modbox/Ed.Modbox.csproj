@@ -40,7 +40,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManifestBuilders\IManifestBuilder.cs" />
+    <Compile Include="ManifestBuilders\ManifestBuilder.cs" />
+    <Compile Include="Mod.cs" />
+    <Compile Include="ModContainer.cs" />
+    <Compile Include="ModContainerOptions.cs" />
+    <Compile Include="ModDefinition.cs" />
+    <Compile Include="ModLocators\SearchPathModLocator.cs" />
+    <Compile Include="ModLocators\IModLocator.cs" />
+    <Compile Include="ModManifest.cs" />
+    <Compile Include="ModPrototype.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\deps\sharpfilesystem\SharpFileSystem\SharpFileSystem.csproj">
+      <Project>{3C4D07BA-23B5-4A63-92CF-F3BF892B7329}</Project>
+      <Name>SharpFileSystem %28Dependencies\sharpfilesystem\SharpFileSystem%29</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

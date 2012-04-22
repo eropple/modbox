@@ -34,7 +34,7 @@ ModContainer is instantiated like so:
     options.ManifestBuilder = ManifestBuilder.Default;
     
     // required options
-    options.ModLocator = ModLocator.FromPaths(basePath, commonAppData, userAppData);
+    options.ModLocator = new ModLocator(basePath, commonAppData, userAppData);
 
     // get your list of mods...
     var mods = new List<ModDefinition>();
@@ -102,6 +102,9 @@ one. :-)
 length restriction, but may not include any characters other than 0 to 9.
 These are treated internally as integers and any leading zeroes are ignored;
 a mod with a version of "2.09" will satisfy "2.8+".
+
+- If your mod has no dependencies (as, for example, your core/base game), you
+can completely omit the <deps> section.
 
 ### Mod Loading ###
 

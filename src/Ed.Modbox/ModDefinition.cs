@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using SharpFileSystem;
 
 namespace Ed.Modbox
@@ -16,6 +17,10 @@ namespace Ed.Modbox
         public readonly Int32 Major;
         public readonly Int32 Minor;
         public readonly ModMatchingRule MatchingRule;
+
+        protected static readonly Regex MatchRegex = 
+            new Regex("^[a-zA-Z0-9\\.]*-[0-9]*\\.(x|[0-9]*\\+?)$");
+
 
         public ModDefinition(String name, Int32 major, 
                              Int32 minor, ModMatchingRule matchingRule)
@@ -104,6 +109,40 @@ namespace Ed.Modbox
             }
         }
 
+        public override string ToString()
+        {
+            return this.ToString(true);
+        }
+
+        public String ToString(Boolean includeMatchingRule)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(this.Name)
+                .Append("-")
+                .Append(this.Major);
+
+            if (includeMatchingRule && this.MatchingRule != ModMatchingRule.Exact)
+            {
+                switch (this.MatchingRule)
+                {
+                    case ModMatchingRule.AnyMinor:
+                        sb.Append("x");
+                        break;
+                    case ModMatchingRule.MinorOrGreater:
+                        sb.Append(this.Minor).Append("+");
+                        break;
+                    default:
+                        throw new Exception("impossible");
+                }
+            }
+            else
+            {
+                sb.Append(this.Minor);
+            }
+
+            return sb.ToString();
+        }
+
         public static bool operator ==(ModDefinition left, ModDefinition right)
         {
             return Equals(left, right);
@@ -113,6 +152,8 @@ namespace Ed.Modbox
         {
             return !Equals(left, right);
         }
+
+        
 
 
         /// <summary>
@@ -136,8 +177,35 @@ namespace Ed.Modbox
                     "{1} tokens found, {2} expected", input, tokens.Length, 2));
             }
 
-            String name = tokens[0];
-            String version = tokens[1];
+            return Parse(tokens[0], tokens[1]);
+        }
+
+        /// <summary>
+        /// Parses a list of strings (i.e., from System.IO.File.ReadAllLines)
+        /// into a list of ModDefinitions.
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns></returns>
+        public static IList<ModDefinition> Parse(IList<String> inputs)
+        {
+            List<ModDefinition> mods = new List<ModDefinition>(inputs.Count);
+            foreach (String input in inputs)
+            {
+                mods.Add(ModDefinition.Parse(input));
+            }
+            return mods;
+        }
+
+        /// <summary>
+        /// Parses a mod definition from two strings (for example, the component
+        /// parts of "modname-1.0", separated into name = "modname" and version = "1.0").
+        /// Supports all version formats described in the ModMatchingRule enum.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="version"></param>
+        /// <returns></returns>
+        public static ModDefinition Parse(String name, String version)
+        {
             ModMatchingRule matchingRule = ModMatchingRule.Exact;
 
             String[] versionTokens = version.Split('.');
@@ -165,6 +233,17 @@ namespace Ed.Modbox
             }
 
             return new ModDefinition(name, major, minor, matchingRule);
+        }
+
+        /// <summary>
+        /// Does a regex match to determine if this could potentially be a legal
+        /// definition value.
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static Boolean MightMatch(String input)
+        {
+            return MatchRegex.IsMatch(input);
         }
     }
 
