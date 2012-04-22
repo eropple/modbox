@@ -15,6 +15,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharpFileSystem.SharpZipLib
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ed.Modbox", "src\Ed.Modbox\Ed.Modbox.csproj", "{C3FBDE26-0AB3-4D4A-BB41-8167FD44059F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{D8C18D3E-8F09-4C86-AD27-CA7A6254339D}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "doc", "doc", "{603C879A-A710-40F7-8DF4-EFDBE3A636A0}"
+	ProjectSection(SolutionItems) = preProject
+		doc\USING.md = doc\USING.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,5 +61,6 @@ Global
 		{EA7CBA29-CFA8-4945-BB64-CCF25078190E} = {A8AC28BB-702D-498D-8314-4EE628CD87A7}
 		{34CA60AC-D3A0-4A58-BCE1-3CEA55844715} = {A8AC28BB-702D-498D-8314-4EE628CD87A7}
 		{E0BAC37A-07E5-4192-8BD9-51C7CA66C165} = {A8AC28BB-702D-498D-8314-4EE628CD87A7}
+		{603C879A-A710-40F7-8DF4-EFDBE3A636A0} = {D8C18D3E-8F09-4C86-AD27-CA7A6254339D}
 	EndGlobalSection
 EndGlobal
